@@ -16,6 +16,12 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'apod.nasa.gov',
+                port: '',
+                pathname: '**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'www.borderless-software.com',
                 port: '',
                 pathname: '**',
