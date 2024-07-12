@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google"
 import "./globals.css"
 import Image from "next/image"
+import Link from "next/link"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,7 +15,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <header className="flex justify-between items-center p-4 bg-slate-300 border">
-            <h1>{metadata.title}</h1>
+            <nav>
+                <ul className="flex gap-8 mx-4 text-bold">
+                    <li className="hover:text-blue-500">
+                        <Link href="/">Home</Link>
+                    </li>
+                    <li className="hover:text-blue-500">
+                        <Link href="/nasa-images">NASA Images</Link>
+                    </li>
+                </ul>
+            </nav>
             <Image
                 src="/next.svg"
                 alt="Next.js Logo"
