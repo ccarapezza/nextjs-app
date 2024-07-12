@@ -34,10 +34,29 @@ async function fetchAstronomyPictureOfTheDay() {
     }
 }
 
+async function getNASAImageDetails(nasaId) {
+    const url = `https://images-api.nasa.gov/search?nasa_id=${nasaId}`
+
+    try {
+        console.log('getNASAImageDetails:', url)
+        const response = await fetch(url)
+        if (!response.ok) {
+            throw new Error('Error al obtener los detalles de la imagen')
+        }
+        const data = await response.json()
+        console.log('getNASAImageDetails:', data)
+        return data.collection.items[0] // Retorna solo el primer item
+    } catch (error) {
+        console.error('Error en getNASAImageDetails:', error.message)
+        return null
+    }
+}
+
 // Función para consultar imágenes de la NASA Image and Video Library (NASA IVL) con paginado
 async function searchNASAImages(query="", pageNumber, pageSize) {
     const url = `https://images-api.nasa.gov/search?q=${query}&media_type=image&page=${pageNumber}&page_size=${pageSize}`
     try {
+        console.log('searchNASAImages:', url)
         const response = await fetch(url)
 
         //delay
@@ -48,6 +67,8 @@ async function searchNASAImages(query="", pageNumber, pageSize) {
         }
 
         const data = await response.json()
+
+        console.log('searchNASAImages:', data)
 
         return {
             items: data.collection.items,
@@ -96,4 +117,4 @@ async function fetchRovers(query, pageNumber = 1, pageSize = 2) {
 }
 
 // Exporta las funciones para poder usarlas en otros archivos
-export { fetchMarsImages, fetchAstronomyPictureOfTheDay, searchNASAImages, searchNASAVideos, fetchRovers }
+export { fetchMarsImages, fetchAstronomyPictureOfTheDay, searchNASAImages, searchNASAVideos, fetchRovers, getNASAImageDetails }
